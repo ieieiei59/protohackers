@@ -1,0 +1,21 @@
+{
+    "dockerComposeFile": ["../docker-compose.yml", "docker-compose.yml"],
+    "service": "golang",
+    "workspaceFolder": "/workspace/golang",
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            // Set *default* container specific settings.json values on container create.
+            "settings": {
+                "go.toolsManagement.checkForUpdates": "local",
+                "go.useLanguageServer": true,
+                "go.gopath": "/go"
+            },
+
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                "golang.Go"
+            ]
+        }
+    }
+}

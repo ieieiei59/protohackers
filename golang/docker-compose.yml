@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  golang:
+    image: golang:1.19-bullseye
+    volumes:
+      - ../:/workspace
