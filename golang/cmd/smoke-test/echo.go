@@ -38,16 +38,24 @@ func receiveTCPConnection(listener *net.TCPListener) {
 
 func echoHandler(conn *net.TCPConn) {
 	defer conn.Close()
+	
+	for {
+		b := make([]byte, 16)	
+		n, err := conn.Read(b)
+		
+		if err != nil {
+			log.Println("close")
+			break
+		}
 
-	b := make([]byte, 1024)
-	n, _ := conn.Read(b)
-	conn.Write(b[:n])
+		conn.Write(b[:n])
 
-	log.Println(fmt.Sprintf("readed: `%s`", string(b[:n])))
+		log.Println(fmt.Sprintf("readed (%d): `%s`", n, string(b[:n])))
+	}
 }
 
 func main() {
-	tcpAddr, err := net.ResolveTCPAddr("tcp", ":8080")
+	tcpAddr, err := net.ResolveTCPAddr("tcp", "0.0.0.0:8080")
 	logFatal(err)
 
 	listener, err := net.ListenTCP("tcp", tcpAddr)
